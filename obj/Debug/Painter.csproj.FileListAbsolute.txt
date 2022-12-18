@@ -1,0 +1,11 @@
+C:\Users\v8950\source\repos\newLabs\Painter\bin\Debug\Painter.exe.config
+C:\Users\v8950\source\repos\newLabs\Painter\bin\Debug\Painter.exe
+C:\Users\v8950\source\repos\newLabs\Painter\bin\Debug\Painter.pdb
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.csproj.AssemblyReference.cache
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.csproj.SuggestedBindingRedirects.cache
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.Form1.resources
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.Properties.Resources.resources
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.csproj.GenerateResource.cache
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.csproj.CoreCompileInputs.cache
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.exe
+C:\Users\v8950\source\repos\newLabs\Painter\obj\Debug\Painter.pdb
