@@ -37,10 +37,16 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            this.colorContour = new System.Windows.Forms.Button();
+            this.colorFill = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.colorContourDialog = new System.Windows.Forms.ColorDialog();
+            this.colorFillDialog = new System.Windows.Forms.ColorDialog();
+            this.label5 = new System.Windows.Forms.Label();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,7 +58,7 @@
             this.button1.TabIndex = 0;
             this.button1.Text = "rd line";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.randomLine_Click);
             // 
             // button2
             // 
@@ -62,7 +68,7 @@
             this.button2.TabIndex = 1;
             this.button2.Text = "rd rect";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.button2.Click += new System.EventHandler(this.randomRect_Click);
             // 
             // button3
             // 
@@ -72,7 +78,7 @@
             this.button3.TabIndex = 2;
             this.button3.Text = "line";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.lineCoords_Click);
             // 
             // textBox1
             // 
@@ -114,11 +120,15 @@
             this.button4.TabIndex = 7;
             this.button4.Text = "rect";
             this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.button4.Click += new System.EventHandler(this.rectCoords_Click);
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.panel1.Controls.Add(this.textBox5);
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.colorContour);
+            this.panel1.Controls.Add(this.colorFill);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
@@ -137,14 +147,43 @@
             this.panel1.Size = new System.Drawing.Size(100, 450);
             this.panel1.TabIndex = 8;
             // 
-            // label1
+            // colorContour
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(16, 150);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(20, 16);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "x1";
+            this.colorContour.BackColor = System.Drawing.Color.Black;
+            this.colorContour.Location = new System.Drawing.Point(61, 325);
+            this.colorContour.Name = "colorContour";
+            this.colorContour.Size = new System.Drawing.Size(33, 33);
+            this.colorContour.TabIndex = 13;
+            this.colorContour.UseVisualStyleBackColor = false;
+            this.colorContour.Click += new System.EventHandler(this.colorContour_Click);
+            // 
+            // colorFill
+            // 
+            this.colorFill.BackColor = System.Drawing.Color.Transparent;
+            this.colorFill.Location = new System.Drawing.Point(20, 325);
+            this.colorFill.Name = "colorFill";
+            this.colorFill.Size = new System.Drawing.Size(33, 33);
+            this.colorFill.TabIndex = 12;
+            this.colorFill.UseVisualStyleBackColor = false;
+            this.colorFill.Click += new System.EventHandler(this.colorFill_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(17, 278);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(21, 16);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "y2";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(17, 234);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(20, 16);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "x2";
             // 
             // label2
             // 
@@ -155,23 +194,32 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "y1";
             // 
-            // label3
+            // label1
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(17, 234);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(60, 16);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "x2 / width";
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(16, 150);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(20, 16);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "x1";
             // 
-            // label4
+            // label5
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(17, 278);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 16);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "y2 / height";
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(17, 361);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 16);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Line Width";
+            // 
+            // textBox5
+            // 
+            this.textBox5.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.textBox5.Location = new System.Drawing.Point(20, 380);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(50, 22);
+            this.textBox5.TabIndex = 15;
+            this.textBox5.Text = "1";
             // 
             // Form1
             // 
@@ -184,7 +232,7 @@
             this.Name = "Form1";
             this.Text = "Form1";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.paint);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);
@@ -206,6 +254,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button colorContour;
+        private System.Windows.Forms.ColorDialog colorContourDialog;
+        private System.Windows.Forms.ColorDialog colorFillDialog;
+        private System.Windows.Forms.Button colorFill;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.Label label5;
     }
 }
 

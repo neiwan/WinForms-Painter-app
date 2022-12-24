@@ -16,10 +16,15 @@ namespace Painter
             this.g = g;
             g.Clear(Color.White);
         }
-        public void DrawRect(int x1, int y1, int x3, int y3)
+        public void DrawRect(int x1, int y1, int x2, int y2)
         {
-            g.DrawRectangle(pen, x1, y1, x3 - x1, y3 - y1);
-            g.FillRectangle(brush, x1, y1, x3 - x1, y3 - y1);
+            int width = Math.Abs(x1 - x2);
+            int height = Math.Abs(y1 - y2);
+            x1 = new List<int>() { x1, x2 }.Min();
+            y1 = new List<int>() { y1, y2 }.Min();
+            g.FillRectangle(brush, x1, y1, width, height);
+            g.DrawRectangle(pen, x1, y1, width, height);
+            
         }
         private Pen pen = new Pen(Color.Black, 1F);
         private SolidBrush brush = new SolidBrush(Color.Transparent);
@@ -29,7 +34,6 @@ namespace Painter
         public void DrawLine(int x1, int y1, int x2, int y2)
         {
             g.DrawLine(pen, x1, y1, x2, y2);
-            
         }
     }
 }
