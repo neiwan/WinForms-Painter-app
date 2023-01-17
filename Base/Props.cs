@@ -42,8 +42,9 @@ namespace Painter
         abstract public void Apply(DrawSystem DS);
         abstract public Props Clone();
     }
-    public class FillProps : Props
+    public class FillProps : Props, IFillProps
     {
+        public Color Color { get => fill; set => fill = value; }
         private Color fill = Color.Transparent;
         public FillProps(Color fill)
         {
@@ -58,8 +59,10 @@ namespace Painter
             return new FillProps(fill);
         }
     }
-    public class LineProps : Props
+    public class LineProps : Props, ILineProps
     {
+        public Color Color { get => color; set => color = value; }
+        public float Width { get => width; set => width = value; }
         private Color color = Color.Black;
         private float width = 1F;
         public LineProps(Color color, float width)

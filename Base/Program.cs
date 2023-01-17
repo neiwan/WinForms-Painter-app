@@ -16,7 +16,11 @@ namespace Painter
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+
+            Panel panel1 = new Panel();
+            DrawSystem DS = new DrawSystem(panel1.CreateGraphics());
+            Model model = new Model(DS);
+            Application.Run(new Form1(model));
         }
     }
 }

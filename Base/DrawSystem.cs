@@ -10,7 +10,7 @@ namespace Painter
 {
     public class DrawSystem
     {
-        Graphics g;
+        public Graphics g;
         public DrawSystem(Graphics g)
         {
             this.g = g;

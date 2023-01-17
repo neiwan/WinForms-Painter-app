@@ -7,95 +7,69 @@ namespace Painter
 {
     public partial class Form1 : Form
     {
-        DrawSystem DS;
-        public Form1()
+        IController IContrl;
+        public Form1(Model model)
         {
             InitializeComponent();
-            DS = new DrawSystem(CreateGraphics());
-        }
-        private void randomLine_Click(object sender, System.EventArgs e)
-        {
-            Random random = new Random();
-            try
-            {
-                PropList pl = new PropList();
-                pl.Add(new FillProps(this.colorFill.BackColor));
-                pl.Add(new LineProps(this.colorContour.BackColor, float.Parse(textBox5.Text)));
-                Line line1 = new Line(new Frame(random.Next(0, Form1.ActiveForm.Width - 100), random.Next(0, Form1.ActiveForm.Height), random.Next(0, Form1.ActiveForm.Width - 100), random.Next(0, Form1.ActiveForm.Height)), pl);
-                line1.Draw(DS);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Введите корректную толщину!");
-            }
-            
-        }
-        private void randomRect_Click(object sender, System.EventArgs e)
-        {
-            Random random = new Random();
-            int x1 = random.Next(0, Form1.ActiveForm.Width - 100);
-            int y1 = random.Next(0, Form1.ActiveForm.Height);
-            try
-            {
-                PropList pl = new PropList();
-                pl.Add(new FillProps(this.colorFill.BackColor));
-                pl.Add(new LineProps(this.colorContour.BackColor, float.Parse(textBox5.Text)));
-                Rect rect1 = new Rect(new Frame(x1, y1, random.Next(0, Form1.ActiveForm.Width - 100 - x1), random.Next(0, Form1.ActiveForm.Height - y1)), pl);
-                rect1.Draw(DS);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Введите корректную толщину!");
-            }
-
-        }
-        private void lineCoords_Click(object sender, System.EventArgs e)
-        {
-            try
-            {
-                PropList pl = new PropList();
-                pl.Add(new FillProps(this.colorFill.BackColor));
-                pl.Add(new LineProps(this.colorContour.BackColor, float.Parse(textBox5.Text)));
-                Line line1 = new Line(new Frame(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text), int.Parse(textBox4.Text)), pl );
-                line1.Draw(DS);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Введите корректные данные!");
-            }
-        }
-        private void rectCoords_Click(object sender, System.EventArgs e)
-        {
-            try
-            {
-                PropList pl = new PropList();
-                pl.Add(new FillProps(this.colorFill.BackColor));
-                pl.Add(new LineProps(this.colorContour.BackColor, float.Parse(textBox5.Text)));
-                Rect rect1 = new Rect(new Frame(int.Parse(textBox1.Text), int.Parse(textBox2.Text), int.Parse(textBox3.Text), int.Parse(textBox4.Text)), pl);
-                rect1.Draw(DS);
-            }
-            catch (System.FormatException)
-            {
-                MessageBox.Show("Введите корректные данные!");
-            }
+            IContrl = new Controller(model);
+            IContrl.IModel.GrController.SetPort(panel2.CreateGraphics());
         }
         private void colorFill_Click(object sender, EventArgs e)
         {
-            this.colorFillDialog.ShowDialog();
-            this.colorFill.BackColor = this.colorFillDialog.Color;
+            if (this.colorFillDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.colorFill.BackColor = this.colorFillDialog.Color;
+                IContrl.IModel.GrParams.FillProps.Color = this.colorFillDialog.Color;
+            }
         }
         private void colorContour_Click(object sender, EventArgs e)
         {
-            this.colorContourDialog.ShowDialog();
-            this.colorContour.BackColor = this.colorContourDialog.Color;
+            if (this.colorContourDialog.ShowDialog() == DialogResult.OK)
+            {
+                this.colorContour.BackColor = this.colorContourDialog.Color;
+                IContrl.IModel.GrParams.LineProps.Color = this.colorContourDialog.Color;
+            }
+            
+        }
+        private void panel2_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                int x = e.X;
+                int y = e.Y;
+                IContrl.IEventHandler.LeftMouseUp(x, y);
+                IContrl.IModel.GrController.Repaint();
+            }
         }
         private void paint(object sender, PaintEventArgs e)
         {
-            Group group = new Group(new List<Item> { new Line(new Frame(1, 1, 100, 100), new PropList())});
+            IContrl.IModel.GrController.SetPort(panel2.CreateGraphics());
+            IContrl.IModel.GrController.Repaint();
+        }
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                IContrl.IModel.GrParams.LineProps.Width = float.Parse(textBox5.Text);
+            }
+            catch
+            {
 
-            group.Add(new Rect(new Frame(100, 100, 200, 200), new PropList()));
-            group.Draw(DS);
-            group.frame.DrawFrame(DS).Draw(DS);
+            }
+            
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            switch (comboBox1.SelectedIndex)
+            {
+                case (0):
+                    IContrl.IModel.Factory.ItemType = ItemType.Line;
+                    break;
+                case (1):
+                    IContrl.IModel.Factory.ItemType = ItemType.Rect;
+                    break;
+            }
         }
     }
 }
